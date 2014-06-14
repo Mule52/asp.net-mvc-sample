@@ -71,6 +71,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,33 +86,9 @@
     <Compile Include="Configuration\SchoolInterceptorTransientErrors.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Migrations\201402242126344_InitialCreate.cs" />
-    <Compile Include="Migrations\201402242126344_InitialCreate.Designer.cs">
-      <DependentUpon>201402242126344_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201402242138028_MaxLengthOnNames.cs" />
-    <Compile Include="Migrations\201402242138028_MaxLengthOnNames.Designer.cs">
-      <DependentUpon>201402242138028_MaxLengthOnNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201402242139118_ColumnFirstName.cs" />
-    <Compile Include="Migrations\201402242139118_ColumnFirstName.Designer.cs">
-      <DependentUpon>201402242139118_ColumnFirstName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201402242150170_ComplexDataModel.cs" />
-    <Compile Include="Migrations\201402242150170_ComplexDataModel.Designer.cs">
-      <DependentUpon>201402242150170_ComplexDataModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201402251758056_DepartmentSP.cs" />
-    <Compile Include="Migrations\201402251758056_DepartmentSP.Designer.cs">
-      <DependentUpon>201402251758056_DepartmentSP.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201402251804219_RowVersion.cs" />
-    <Compile Include="Migrations\201402251804219_RowVersion.Designer.cs">
-      <DependentUpon>201402251804219_RowVersion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201402251853267_Inheritance.cs" />
-    <Compile Include="Migrations\201402251853267_Inheritance.Designer.cs">
-      <DependentUpon>201402251853267_Inheritance.cs</DependentUpon>
+    <Compile Include="Migrations\201406142052386_Initial.cs" />
+    <Compile Include="Migrations\201406142052386_Initial.Designer.cs">
+      <DependentUpon>201406142052386_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\SchoolInitializer.cs" />
@@ -119,6 +96,7 @@
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Enrollments.cs" />
+    <Compile Include="Models\Env.cs" />
     <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\Mapping\PasswordResetTokenMap.cs" />
     <Compile Include="Models\Mapping\RoleMap.cs" />
@@ -129,29 +107,11 @@
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SecurityUtil.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201402242126344_InitialCreate.resx">
-      <DependentUpon>201402242126344_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201402242138028_MaxLengthOnNames.resx">
-      <DependentUpon>201402242138028_MaxLengthOnNames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201402242139118_ColumnFirstName.resx">
-      <DependentUpon>201402242139118_ColumnFirstName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201402242150170_ComplexDataModel.resx">
-      <DependentUpon>201402242150170_ComplexDataModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201402251758056_DepartmentSP.resx">
-      <DependentUpon>201402251758056_DepartmentSP.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201402251804219_RowVersion.resx">
-      <DependentUpon>201402251804219_RowVersion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201402251853267_Inheritance.resx">
-      <DependentUpon>201402251853267_Inheritance.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406142052386_Initial.resx">
+      <DependentUpon>201406142052386_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

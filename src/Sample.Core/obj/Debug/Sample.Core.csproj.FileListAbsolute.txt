@@ -36,3 +36,35 @@ D:\ASP.NET MVC Application Using Entity Framework Code First\src\Sample.Core\bin
 D:\ASP.NET MVC Application Using Entity Framework Code First\src\Sample.Core\bin\Debug\Newtonsoft.Json.xml
 D:\ASP.NET MVC Application Using Entity Framework Code First\src\Sample.Core\bin\Debug\log4net.dll
 D:\ASP.NET MVC Application Using Entity Framework Code First\src\Sample.Core\bin\Debug\log4net.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Sample.Core.dll.config
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Sample.Core.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Sample.Core.pdb
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Autofac.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\EntityFramework.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\EntityFramework.SqlServer.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\log4net.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.Security.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Newtonsoft.Json.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Owin.dll
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Autofac.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\EntityFramework.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\EntityFramework.SqlServer.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\log4net.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.Security.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Newtonsoft.Json.xml
+D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.dll
+D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.pdb
+D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.Migrations.Initial.resources
+D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.csproj.GenerateResource.Cache

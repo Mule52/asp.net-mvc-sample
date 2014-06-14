@@ -8,7 +8,7 @@ namespace Sample.Core.Models.Mapping
         {
             ToTable("Roles");
             Property(r => r.Name)
-                .HasMaxLength(50);
+                .HasMaxLength(256);
         }
     }
 }

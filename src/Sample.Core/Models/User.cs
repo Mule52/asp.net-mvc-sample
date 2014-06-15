@@ -28,9 +28,9 @@ namespace Sample.Core.Models
         public long? OrganizationId { get; set; }
         public virtual Organization Organization { get; set; }
 
-        [Required]
-        [Display(Name = "User Name (email address)")]
-        public override string Email { get; set; }
+        //[Required]
+        //[Display(Name = "Email Address")]
+        //public override string Email { get; set; }
 
         //[Display(Name = "Created")]
         //[JsonIgnore]

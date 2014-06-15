@@ -112,6 +112,7 @@
     <Compile Include="Security\SecurityExtensions.cs" />
     <Compile Include="Security\SecurityUtil.cs" />
     <Compile Include="Security\UserClaimsIdentityFactory.cs" />
+    <Compile Include="Security\UserPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

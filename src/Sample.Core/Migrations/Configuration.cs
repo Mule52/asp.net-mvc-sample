@@ -33,6 +33,7 @@ namespace Sample.Core.Migrations
             try
             {
                 SeedRoles(context);
+                SeedUsers(context);
 
                 var students = SeedStudents(context);
                 var instructors = SeedInstructors(context);

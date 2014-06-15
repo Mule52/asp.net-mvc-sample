@@ -6,7 +6,7 @@ using Sample.Web.ViewModels;
 
 namespace Sample.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AppController
     {
         private readonly DataContext _context;
 

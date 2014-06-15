@@ -13,7 +13,7 @@ namespace Sample.Core.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201406150307425_Rebase"; }
+            get { return "201406151623032_Rebase"; }
         }
         
         string IMigrationMetadata.Source

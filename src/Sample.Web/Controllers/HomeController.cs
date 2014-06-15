@@ -32,13 +32,14 @@ namespace Sample.Web.Controllers
             //           };
 
             // SQL version of the above LINQ code.
-            string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "
-                           + "FROM Person "
-                           + "WHERE Discriminator = 'Student' "
-                           + "GROUP BY EnrollmentDate";
-            IEnumerable<EnrollmentDateGroup> data = _context.Database.SqlQuery<EnrollmentDateGroup>(query);
+            //string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "
+            //               + "FROM Person "
+            //               + "WHERE Discriminator = 'Student' "
+            //               + "GROUP BY EnrollmentDate";
+            //IEnumerable<EnrollmentDateGroup> data = _context.Database.SqlQuery<EnrollmentDateGroup>(query);
 
-            return View(data.ToList());
+            //return View(data.ToList());
+            return View();
         }
 
         public ActionResult Contact()

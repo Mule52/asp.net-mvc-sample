@@ -51,6 +51,16 @@ namespace Sample.Core.Models
                     result.Add(new ValidationResult("Zip code is invalid"));
                 }
             }
+
+            if (!String.IsNullOrEmpty(City))
+            {
+                var cityRegex = new Regex(@"^[A-Za-z. '-]+$");
+                if (!cityRegex.IsMatch(City))
+                {
+                    result.Add(new ValidationResult("City is invalid", new[] { "City" }));
+                }
+            }
+
             return result;
         }
     }

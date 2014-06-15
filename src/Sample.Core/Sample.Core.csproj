@@ -91,7 +91,6 @@
       <DependentUpon>201406150307425_Rebase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\SchoolInitializer.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DataContext.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\EmailUsernameIdentityValidator.cs" />
+    <Compile Include="Security\SecurityExtensions.cs" />
     <Compile Include="Security\SecurityUtil.cs" />
     <Compile Include="Security\UserClaimsIdentityFactory.cs" />
   </ItemGroup>

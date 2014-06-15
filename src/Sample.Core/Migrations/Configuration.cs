@@ -1,8 +1,15 @@
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.Diagnostics.Eventing;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Sample.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using Sample.Core.Security;
 
 namespace Sample.Core.Migrations
 {
@@ -11,9 +18,36 @@ namespace Sample.Core.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
+        protected UserManager<User> userManager;
+
         protected override void Seed(DataContext context)
+        {
+            userManager = new UserManager<User>(new UserStore<User>(context))
+            {
+                UserValidator = new EmailUsernameIdentityValidator()
+            };
+
+            try
+            {
+                SeedRoles(context);
+
+                var students = SeedStudents(context);
+                var instructors = SeedInstructors(context);
+                var departments = SeedDepartments(context, instructors);
+                var courses = SeedCourse(context, departments);
+                var officeAssignments = SeedOfficeAssignment(context, instructors);
+                var enrollments = SeedEnrollment(context, students, courses);
+            }
+            catch (DbEntityValidationException e)
+            {
+                WriteEntityErrorsAndThrow(e);
+            }
+        }
+
+        private List<Student> SeedStudents(DataContext context)
         {
             var students = new List<Student>
             {
@@ -35,10 +69,14 @@ namespace Sample.Core.Migrations
                     EnrollmentDate = DateTime.Parse("2005-09-01") }
             };
 
-
             students.ForEach(s => context.Students.AddOrUpdate(p => p.LastName, s));
             context.SaveChanges();
 
+            return students;
+        }
+
+        private List<Instructor> SeedInstructors(DataContext context)
+        {
             var instructors = new List<Instructor>
             {
                 new Instructor { FirstMidName = "Kim",     LastName = "Abercrombie", 
@@ -55,6 +93,11 @@ namespace Sample.Core.Migrations
             instructors.ForEach(s => context.Instructors.AddOrUpdate(p => p.LastName, s));
             context.SaveChanges();
 
+            return instructors;
+        }
+
+        private List<Department> SeedDepartments(DataContext context, List<Instructor> instructors)
+        {
             var departments = new List<Department>
             {
                 new Department { Name = "English",     Budget = 350000, 
@@ -73,6 +116,11 @@ namespace Sample.Core.Migrations
             departments.ForEach(s => context.Departments.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();
 
+            return departments;
+        }
+
+        private List<Course> SeedCourse(DataContext context, List<Department> departments)
+        {
             var courses = new List<Course>
             {
                 new Course {CourseID = 1050, Title = "Chemistry",      Credits = 3,
@@ -107,6 +155,11 @@ namespace Sample.Core.Migrations
             courses.ForEach(s => context.Courses.AddOrUpdate(p => p.CourseID, s));
             context.SaveChanges();
 
+            return courses;
+        }
+
+        private List<OfficeAssignment> SeedOfficeAssignment(DataContext context, List<Instructor> instructors)
+        {
             var officeAssignments = new List<OfficeAssignment>
             {
                 new OfficeAssignment { 
@@ -134,6 +187,11 @@ namespace Sample.Core.Migrations
 
             context.SaveChanges();
 
+            return officeAssignments;
+        }
+
+        private List<Enrollment> SeedEnrollment(DataContext context, List<Student> students, List<Course> courses)
+        {
             var enrollments = new List<Enrollment>
             {
                 new Enrollment { 
@@ -204,6 +262,68 @@ namespace Sample.Core.Migrations
                 }
             }
             context.SaveChanges();
+
+            return enrollments;
+        }
+
+        private void SeedRoles(DataContext context)
+        {
+            var roleManager = new RoleManager<Role>(new RoleStore<Role>(context));
+
+            roleManager.Create(new Role { Name = "SysAdmin", Description = "Site-wide system administrator" });
+            roleManager.Create(new Role { Name = "Administrator", Description = "Org administrator" });
+            roleManager.Create(new Role { Name = "User", Description = "Org user" });
+
+            context.SaveChanges();
+        }
+
+        private void SeedUsers(DataContext context)
+        {
+            AddUser(context, "sysadmin@sample.com", "Bill", "West", "SysAdmin");
+            AddUser(context, "admin@sample.com", "John", "Davis", "Administrator");
+            AddUser(context, "user@sample.com", "Jill", "Smith", "User");
+
+            context.SaveChanges();
+        }
+
+        private void AddUser(DataContext context, string userName, string firstName, string lastName, string primaryRole)
+        {
+            var user = userManager.FindByName(userName);
+            if (user == null)
+            {
+                user = new User
+                {
+                    UserName = userName,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    PasswordExpiresDate = DateTime.UtcNow.AddDays(60)
+                };
+                var res = userManager.Create(user, "password");
+
+                if (res.Succeeded)
+                {
+                    userManager.AddClaim(user.Id, new Claim(ClaimTypes.Role, primaryRole));
+                    userManager.AddToRole(user.Id, primaryRole);
+                    try
+                    {
+                        context.SaveChanges();
+                    }
+                    catch (DbEntityValidationException dbe)
+                    {
+                        WriteEntityErrorsAndThrow(dbe);
+                    }
+                }
+            }
+            else
+            {
+                if (!userManager.IsInRole(user.Id, primaryRole))
+                {
+                    userManager.AddToRole(user.Id, primaryRole);
+                }
+
+                if (!user.HasClaim(ClaimTypes.Role, primaryRole))
+                    userManager.AddClaim(user.Id, new Claim(ClaimTypes.Role, primaryRole));
+            }
         }
 
         void AddOrUpdateInstructor(DataContext context, string courseTitle, string instructorName)
@@ -212,6 +332,22 @@ namespace Sample.Core.Migrations
             var inst = crs.Instructors.SingleOrDefault(i => i.LastName == instructorName);
             if (inst == null)
                 crs.Instructors.Add(context.Instructors.Single(i => i.LastName == instructorName));
+        }
+
+        private void WriteEntityErrorsAndThrow(DbEntityValidationException dbe)
+        {
+            var message = String.Empty;
+            dbe.EntityValidationErrors.ToList().ForEach(e =>
+            {
+                foreach (var err in e.ValidationErrors)
+                {
+                    string msg = String.Format("{0}.{1}: {2}\r\n", e.Entry.Entity.GetType().Name, err.PropertyName, err.ErrorMessage);
+                    Trace.WriteLine(msg);
+                    Console.WriteLine(msg);
+                    message += msg;
+                }
+            });
+            throw new Exception(message, dbe);
         }
     }
 }

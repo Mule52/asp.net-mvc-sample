@@ -66,5 +66,5 @@ D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Microsoft.Owin.Security.OAuth.xm
 D:\asp.net-mvc-sample\src\Sample.Core\bin\Debug\Newtonsoft.Json.xml
 D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.dll
 D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.pdb
-D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.Migrations.Initial.resources
+D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.Migrations.Rebase.resources
 D:\asp.net-mvc-sample\src\Sample.Core\obj\Debug\Sample.Core.csproj.GenerateResource.Cache

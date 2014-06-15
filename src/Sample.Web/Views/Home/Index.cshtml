@@ -1,7 +1,12 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+<p>
+    Hello @User.Identity.Name
+</p>
+<p>
+    <a href="@Url.Action("logout", "account")">Log Out</a>
+</p>
 <div class="jumbotron">
     <h1>Sample Management</h1>
 </div>

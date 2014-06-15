@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 
@@ -23,9 +24,9 @@ namespace Sample.Core.Models
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        //[ForeignKey("Organization")]
-        //public long? OrganizationId { get; set; }
-        //public virtual Organization Organization { get; set; }
+        [ForeignKey("Organization")]
+        public long? OrganizationId { get; set; }
+        public virtual Organization Organization { get; set; }
 
         [Required]
         [Display(Name = "User Name (email address)")]

@@ -28,30 +28,6 @@ namespace Sample.Web
             builder.RegisterType<DataContext>().InstancePerHttpRequest().InstancePerApiRequest();
             builder.Register<IUserStore<User>>(ctx => new UserStore<User>(ctx.Resolve<DataContext>()));
 
-            //builder.Register(x =>
-            //{
-            //    var userManager = new UserManager<User>(x.Resolve<IUserStore<User>>())
-            //    {
-            //        ClaimsIdentityFactory = new UserClaimsIdentityFactory(),
-            //        UserValidator = new EmailUsernameIdentityValidator(),
-            //        PasswordValidator = new StrongPasswordIdentityValidator(),
-            //        UserLockoutEnabledByDefault = bool.Parse(
-            //            ConfigurationManager.AppSettings["AccountLockoutEnabledByDefault"]),
-            //        DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(
-            //            int.Parse(ConfigurationManager.AppSettings["AccountLockoutMinutes"])),
-            //        MaxFailedAccessAttemptsBeforeLockout = int.Parse(
-            //            ConfigurationManager.AppSettings["AccountLockoutAttempts"])
-            //    };
-
-            //    userManager.RegisterTwoFactorProvider("text",
-            //        new TextPhoneNumberTokenProvider(x.Resolve<TwoFactorService>()));
-
-            //    userManager.RegisterTwoFactorProvider("call",
-            //        new VoicePhoneNumberTokenProvider(x.Resolve<TwoFactorService>()));
-
-            //    return userManager;
-            //});
-
             builder.Register<RoleStore<Role>>(ctx => new RoleStore<Role>(ctx.Resolve<DataContext>()));
             builder.Register(x => new RoleManager<Role>(x.Resolve<RoleStore<Role>>()));
 

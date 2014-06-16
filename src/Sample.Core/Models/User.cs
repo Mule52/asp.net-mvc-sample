@@ -28,28 +28,6 @@ namespace Sample.Core.Models
         public long? OrganizationId { get; set; }
         public virtual Organization Organization { get; set; }
 
-        //[Required]
-        //[Display(Name = "Email Address")]
-        //public override string Email { get; set; }
-
-        //[Display(Name = "Created")]
-        //[JsonIgnore]
-        //public DateTime CreateDate { get; set; }
-
-        //[Display(Name = "Created By")]
-        //[StringLength(50)]
-        //[JsonIgnore]
-        //public string CreatedBy { get; set; }
-
-        //[Display(Name = "Modified")]
-        //[JsonIgnore]
-        //public DateTime ModifiedDate { get; set; }
-
-        //[Display(Name = "Modified By")]
-        //[StringLength(50)]
-        //[JsonIgnore]
-        //public string ModifiedBy { get; set; }
-
         [JsonIgnore]
         public override string PasswordHash { get; set; }
 
@@ -59,19 +37,5 @@ namespace Sample.Core.Models
         public DateTime? PasswordExpiresDate { get; set; }
 
         public DateTime? DisabledDateTime { get; set; }
-
-        //public UserPreference UserPreferences { get; set; }
-
-        //public bool IsInOrg(ITenant tenant)
-        //{
-        //    return OrganizationId == tenant.Id;
-        //}
-
-        //public bool IsExpired()
-        //{
-        //    if (PasswordExpiresDate == null)
-        //        return true;
-        //    return PasswordExpiresDate < DateTime.UtcNow;
-        //}
     }
 }

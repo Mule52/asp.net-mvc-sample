@@ -1,10 +1,8 @@
-﻿using System.Data.Entity.Infrastructure.Interception;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Sample.Core.Configuration;
 
 namespace Sample.Web
 {
@@ -23,9 +21,6 @@ namespace Sample.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutofacConfig.Bootstrap();
-
-            //DbInterception.Add(new SchoolInterceptorTransientErrors());
-            //DbInterception.Add(new SchoolInterceptorLogging());
         }
     }
 }

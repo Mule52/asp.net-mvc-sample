@@ -12,45 +12,13 @@ namespace Sample.Core.Models
         {
         }
 
-        //public DbSet<Course> Courses { get; set; }
-        //public DbSet<Department> Departments { get; set; }
-        //public DbSet<Enrollment> Enrollments { get; set; }
-        //public DbSet<Instructor> Instructors { get; set; }
-        //public DbSet<Student> Students { get; set; }
-        //public DbSet<Person> People { get; set; }
-
         public DbSet<Lead> Leads { get; set; }
-
-        //public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
-
-        //protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry, IDictionary<object, object> items)
-        //{
-        //    var entity = entityEntry.Entity as IAuditable;
-        //    if (entity == null) return base.ValidateEntity(entityEntry, items);
-        //    if (entityEntry.State == EntityState.Added)
-        //    {
-        //        entity.CreateDate = DateTime.UtcNow;
-        //        entity.CreatedBy = Thread.CurrentPrincipal.Identity.Name;
-        //        entity.ModifiedDate = DateTime.UtcNow;
-        //        entity.ModifiedBy = Thread.CurrentPrincipal.Identity.Name;
-        //    }
-
-        //    if (entityEntry.State == EntityState.Modified)
-        //    {
-        //        if (entity.CreateDate == null || entity.CreateDate == DateTime.MinValue)
-        //            entity.CreateDate = DateTime.UtcNow;
-        //        entity.ModifiedDate = DateTime.UtcNow;
-        //        entity.ModifiedBy = Thread.CurrentPrincipal.Identity.Name;
-        //    }
-        //    return base.ValidateEntity(entityEntry, items);
-        //}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new RoleMap());
-            //modelBuilder.Configurations.Add(new PasswordResetTokenMap());
 
             modelBuilder.Entity<IdentityUser>()
                 .HasKey(t => t.Id)

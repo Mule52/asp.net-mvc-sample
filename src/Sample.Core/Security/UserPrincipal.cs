@@ -16,13 +16,5 @@ namespace Sample.Core.Security
                 return FindFirst(ClaimTypes.Name).Value;
             }
         }
-
-        public string Country
-        {
-            get
-            {
-                return FindFirst(ClaimTypes.Country).Value;
-            }
-        }
     }
 }

@@ -80,10 +80,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\SchoolConfiguration.cs" />
-    <Compile Include="Configuration\SchoolContext.cs" />
-    <Compile Include="Configuration\SchoolInterceptorLogging.cs" />
-    <Compile Include="Configuration\SchoolInterceptorTransientErrors.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Migrations\201406151623032_Rebase.cs" />

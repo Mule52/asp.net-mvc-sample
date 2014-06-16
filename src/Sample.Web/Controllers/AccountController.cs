@@ -1,4 +1,7 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -16,12 +19,14 @@ namespace Sample.Web.Controllers
     public class AccountController : Controller
     {
         private readonly DataContext _context;
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<User> _userManager;
+        private readonly UserStore<User> _userStore;
 
         public AccountController(DataContext context)
         {
             _context = context;
-            userManager = new UserManager<User>(new UserStore<User>(_context))
+            _userStore = new UserStore<User>(_context);
+            _userManager = new UserManager<User>(_userStore)
             {
                 UserValidator = new EmailUsernameIdentityValidator(),
                 ClaimsIdentityFactory = new UserClaimsIdentityFactory()
@@ -50,26 +55,7 @@ namespace Sample.Web.Controllers
                 return View();
             }
 
-            //// Don't do this in production!
-            //if (model.Email == "admin@admin.com" && model.Password == "password")
-            //{
-            //    var identity = new ClaimsIdentity(new[]
-            //    {
-            //        new Claim(ClaimTypes.Name, "Ben"),
-            //        new Claim(ClaimTypes.Email, "a@b.com"),
-            //        new Claim(ClaimTypes.Country, "England")
-            //    },
-            //        "ApplicationCookie");
-
-            //    IOwinContext ctx = Request.GetOwinContext();
-            //    IAuthenticationManager authManager = ctx.Authentication;
-
-            //    authManager.SignIn(identity);
-
-            //    return Redirect(GetRedirectUrl(model.ReturnUrl));
-            //}
-
-            var user = await userManager.FindAsync(model.Email, model.Password);
+            User user = await _userManager.FindAsync(model.Email, model.Password);
 
             if (user != null)
             {
@@ -120,7 +106,7 @@ namespace Sample.Web.Controllers
                 LastName = model.LastName
             };
 
-            var result = await userManager.CreateAsync(user, model.Password);
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
@@ -128,7 +114,7 @@ namespace Sample.Web.Controllers
                 return RedirectToAction("index", "home");
             }
 
-            foreach (var error in result.Errors)
+            foreach (string error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }
@@ -136,9 +122,58 @@ namespace Sample.Web.Controllers
             return View();
         }
 
+        public ActionResult Edit(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = _context.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var model = new UpdateUserModel();
+            model.Id = user.Id;
+            model.FirstName = user.FirstName;
+            model.LastName = user.LastName;
+            model.UserName = user.UserName;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(UpdateUserModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    User user = _userManager.Find(model.UserName, model.OldPassword);
+                    if (user != null)
+                    {
+                        String userId = User.Identity.GetUserId();
+                        String hashedNewPassword = _userManager.PasswordHasher.HashPassword(model.NewPassword);
+                        User cUser = await _userStore.FindByIdAsync(userId);
+                        await _userStore.SetPasswordHashAsync(cUser, hashedNewPassword);
+                        await _userStore.UpdateAsync(cUser);
+                        return RedirectToAction("index", "home");
+                    }
+                    return new HttpStatusCodeResult(400, "Incorrect username or password");
+                }
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("",
+                    "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            return View(model);
+        }
+
         private async Task SignIn(User user)
         {
-            var identity = await userManager.CreateIdentityAsync(
+            ClaimsIdentity identity = await _userManager.CreateIdentityAsync(
                 user, DefaultAuthenticationTypes.ApplicationCookie);
 
             GetAuthenticationManager().SignIn(identity);
@@ -146,7 +181,7 @@ namespace Sample.Web.Controllers
 
         private IAuthenticationManager GetAuthenticationManager()
         {
-            var ctx = Request.GetOwinContext();
+            IOwinContext ctx = Request.GetOwinContext();
             return ctx.Authentication;
         }
 
@@ -162,9 +197,9 @@ namespace Sample.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && userManager != null)
+            if (disposing && _userManager != null)
             {
-                userManager.Dispose();
+                _userManager.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -8,7 +8,7 @@ namespace Sample.Core.Models
     public class DataContext : IdentityDbContext<User>
     {
         public DataContext()
-            : base("Sample")
+            : base("SampleWebManagement")
         {
         }
 

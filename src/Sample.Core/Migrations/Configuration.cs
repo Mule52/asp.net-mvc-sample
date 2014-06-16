@@ -97,7 +97,7 @@ namespace Sample.Core.Migrations
                     new Lead { FirstName = "Jana", MiddleName = "G", LastName="McCauley", Email="JanaGMcCauley@einrot.com", Phone="269-341-3877", Address = new Address{ Street="81 Shingleton Road", City="Kalamazoo", State="MI", Zip="49007"}},
                 };
 
-            leads.ForEach(l => context.Leads.AddOrUpdate(p => p.Id, l));
+            leads.ForEach(l => context.Leads.AddOrUpdate(p => p.Email, l));
 
             context.SaveChanges();
         }
@@ -118,6 +118,7 @@ namespace Sample.Core.Migrations
             AddUser(context, "sysadmin@sample.com", "Bill", "West", "SysAdmin");
             AddUser(context, "admin@sample.com", "John", "Davis", "Administrator");
             AddUser(context, "user@sample.com", "Jill", "Smith", "User");
+            AddUser(context, "automation@sample.com", "Automation", "TestUser", "SysAdmin");
 
             context.SaveChanges();
         }

@@ -29,7 +29,7 @@ namespace Sample.Core.Models
             // Need an email, phone, or address, otherwise how will we contact them?
             bool hasEmail = !String.IsNullOrEmpty(Email);
             bool hasPhone = !String.IsNullOrEmpty(Phone);
-            bool hasAddress =
+            bool hasAddress = Address != null &&
                 !String.IsNullOrEmpty(Address.City) &&
                 !String.IsNullOrEmpty(Address.Street) &&
                 !String.IsNullOrEmpty(Address.Zip);

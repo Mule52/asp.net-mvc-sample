@@ -12,7 +12,7 @@ using Sample.Core.Security;
 
 namespace Sample.Core.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<DataContext>
+    public sealed class Configuration : DbMigrationsConfiguration<DataContext>
     {
         public Configuration()
         {
